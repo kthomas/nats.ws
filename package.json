@@ -1,6 +1,6 @@
 {
   "name": "@provide/nats.ws",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "NATS websocket client",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
@@ -39,7 +39,11 @@
     "fast-text-encoding": "^1.0.0",
     "nyc": "^15.0.0",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.7.4",
+    "tslint": "5.20.1",
+    "tslint-config-airbnb": "5.11.2",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "^3.5.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
