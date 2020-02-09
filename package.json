@@ -1,8 +1,8 @@
 {
   "name": "@provide/nats.ws",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "NATS websocket client",
-  "main": "nats.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf ./dist",
