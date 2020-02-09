@@ -16,8 +16,6 @@
 
 const TextEncoder = window.TextEncoder;
 
-export const VERSION = require('./version.json').version;
-
 import {extend, isArrayBuffer} from "./util";
 import {
     ClientHandlers,
@@ -89,7 +87,6 @@ export function connect(opts: NatsConnectionOptions): Promise<NatsConnection> {
 
 
 export class NatsConnection implements ClientHandlers {
-    static VERSION = VERSION;
     options: NatsConnectionOptions;
     protocol!: ProtocolHandler;
     closeListeners: Callback[] = [];

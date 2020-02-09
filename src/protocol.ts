@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import {Msg, NatsConnectionOptions, Payload, VERSION} from "./nats";
+import {Msg, NatsConnectionOptions, Payload} from "./nats";
 import {Transport, TransportHandlers, WSTransport} from "./transport";
 import {ErrorCode, NatsError} from "./error";
 import {buildWSMessage, extend, extractProtocolMessage, settle} from "./util";
@@ -56,7 +56,6 @@ export class Connect {
     protocol: number = 1;
     user?: string;
     verbose: boolean = false;
-    version: string = VERSION;
 
     constructor(opts?: NatsConnectionOptions) {
         opts = opts || {} as NatsConnectionOptions;
@@ -300,7 +299,7 @@ export class Subscriptions {
     }
 
     all(): (Sub)[] {
-        let buf = [];
+        let buf: Sub[] = [];
         for (let sid in this.subs) {
             let sub = this.subs[sid];
             buf.push(sub);
