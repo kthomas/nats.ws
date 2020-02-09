@@ -1,7 +1,7 @@
 {
-  "name": "nats.ws",
-  "version": "1.0.0-7",
-  "description": "WebSocket NATS client",
+  "name": "@provide/nats.ws",
+  "version": "0.0.1",
+  "description": "NATS websocket client",
   "main": "nats.js",
   "scripts": {
     "sync_version": "node bin/version.js > src/version.json",
@@ -15,10 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:nats-io/nats.ws.git"
+    "url": "git@github.com:kthomas/nats.ws.git"
   },
   "bugs": {
-    "url": "https://github.com/nats-io/nats.ws/issues"
+    "url": "https://github.com/kthomas/nats.ws/issues"
   },
   "keywords": [
     "NATS",
