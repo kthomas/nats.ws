@@ -1,12 +1,12 @@
 {
   "name": "@provide/nats.ws",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "NATS websocket client",
-  "main": "./dist/index.js",
+  "main": "nats.js",
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf ./dist",
-    "compile": "tsc",
+    "sync_version": "node bin/version.js > src/version.json",
+    "build": "npm run sync_version && tsc && rm build/src/version.d.ts &2>/dev/null  && cp build/src/*.d.ts . && npm run package",
+    "clean": "rm -rf build .nyc_output coverage && rm src/version.json ./nats.js ./nats.js.map ./*.d.ts",
     "test": "npm run build && nyc ava --verbose -T 15000",
     "coveralls": "nyc report --reporter=lcovonly && cat ./coverage/lcov.info | coveralls",
     "cover": "nyc report --reporter=html && open coverage/index.html",
@@ -37,10 +37,6 @@
     "fast-text-encoding": "^1.0.0",
     "nyc": "^15.0.0",
     "ts-loader": "^6.2.1",
-    "tslint": "5.20.1",
-    "tslint-config-airbnb": "5.11.2",
-    "tslint-config-prettier": "1.18.0",
-    "tslint-plugin-prettier": "2.0.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
