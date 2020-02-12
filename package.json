@@ -1,5 +1,5 @@
 {
-  "name": "nats.ws",
+  "name": "@provide/nats.ws",
   "version": "0.0.9",
   "description": "NATS websocket client",
   "main": "./dist/index.js",
