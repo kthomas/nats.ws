@@ -6,8 +6,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname),
         filename: 'nats.js',
+        globalObject: 'this',
         libraryTarget: 'umd',
-        library: 'nats'
+        library: 'nats',
     },
     resolve: {
         extensions: ['.ts']
