@@ -14,7 +14,7 @@
  */
 
 
-const TextEncoder = window && typeof window !== 'undefined' ? window.TextEncoder : undefined;
+const TextEncoder = typeof window !== 'undefined' ? window.TextEncoder : undefined;
 
 export const VERSION = require('./version.json').version;
 
