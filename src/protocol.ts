@@ -16,7 +16,7 @@
 import {Msg, NatsConnectionOptions, Payload, VERSION} from "./nats";
 import {Transport, TransportHandlers, WSTransport} from "./transport";
 import {ErrorCode, NatsError} from "./error";
-import {buildWSMessage, extend, extractProtocolMessage, settle} from "./util";
+import {buildWSMessage, extend, extractProtocolMessage, settle, stringToUint8Array} from "./util";
 import {Nuid} from "js-nuid"
 import {DataBuffer} from "./databuffer";
 
@@ -545,7 +545,11 @@ export class ProtocolHandler implements TransportHandlers {
     sendCommand(cmd: string | ArrayBuffer) {
         let buf: ArrayBuffer;
         if (typeof cmd === 'string') {
-            buf = new TextEncoder().encode(cmd).buffer;
+            if (TextEncoder && typeof TextEncoder !== 'undefined') {
+                buf = new TextEncoder().encode(cmd).buffer;
+            } else {
+                buf = stringToUint8Array(cmd);
+            }
         } else {
             buf = cmd as ArrayBuffer;
         }

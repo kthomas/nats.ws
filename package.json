@@ -1,6 +1,6 @@
 {
   "name": "@provide/nats.ws",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NATS websocket client",
   "main": "nats.js",
   "scripts": {

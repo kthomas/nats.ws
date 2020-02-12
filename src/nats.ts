@@ -14,11 +14,11 @@
  */
 
 
-const TextEncoder = window.TextEncoder;
+const TextEncoder = window && typeof window !== 'undefined' ? window.TextEncoder : undefined;
 
 export const VERSION = require('./version.json').version;
 
-import {extend, isArrayBuffer} from "./util";
+import {extend, isArrayBuffer, stringToUint8Array} from "./util";
 import {
     ClientHandlers,
     defaultReq,
@@ -147,7 +147,12 @@ export class NatsConnection implements ClientHandlers {
                 data = JSON.stringify(data);
             }
             // here we are a string
-            data = new TextEncoder().encode(data);
+
+            if (TextEncoder && typeof TextEncoder !== 'undefined') {
+                data = new TextEncoder().encode(data);
+            } else {
+                data = stringToUint8Array(data);
+            }
         }
 
         this.protocol.publish(subject, data, reply);
