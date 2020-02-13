@@ -14,8 +14,6 @@
  */
 
 
-const TextEncoder = typeof window !== 'undefined' ? window.TextEncoder : undefined;
-
 export const VERSION = require('./version.json').version;
 
 import {extend, isArrayBuffer, stringToUint8Array} from "./util";
@@ -147,12 +145,7 @@ export class NatsConnection implements ClientHandlers {
                 data = JSON.stringify(data);
             }
             // here we are a string
-
-            if (TextEncoder && typeof TextEncoder !== 'undefined') {
-                data = new TextEncoder().encode(data);
-            } else {
-                data = stringToUint8Array(data);
-            }
+            data = stringToUint8Array(data);
         }
 
         this.protocol.publish(subject, data, reply);

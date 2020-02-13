@@ -545,11 +545,7 @@ export class ProtocolHandler implements TransportHandlers {
     sendCommand(cmd: string | ArrayBuffer) {
         let buf: ArrayBuffer;
         if (typeof cmd === 'string') {
-            if (TextEncoder && typeof TextEncoder !== 'undefined') {
-                buf = new TextEncoder().encode(cmd).buffer;
-            } else {
-                buf = stringToUint8Array(cmd);
-            }
+            buf = stringToUint8Array(cmd);
         } else {
             buf = cmd as ArrayBuffer;
         }
