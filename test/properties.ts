@@ -16,7 +16,8 @@
 import * as pkg from '../package.json';
 import test from "ava";
 import {Connect} from "../src/protocol";
-import {connect, NatsConnectionOptions, Payload} from "../src/nats";
+import {connect} from "../src/nats";
+import {ConnectionOptions, Payload} from "../src/types";
 
 test('VERSION is semver', (t) => {
     t.regex(pkg.version, /[0-9]+\.[0-9]+\.[0-9]+/);
@@ -46,7 +47,7 @@ test('default connect properties', (t) => {
 });
 
 test('configured options', (t) => {
-    let nco = {} as NatsConnectionOptions;
+    let nco = {} as ConnectionOptions;
     nco.payload = Payload.BINARY;
     nco.name = "test";
     nco.pass = "secret";

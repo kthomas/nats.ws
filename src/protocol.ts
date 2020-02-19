@@ -14,7 +14,7 @@
  */
 
 import * as pkg from "../package.json";
-import {Msg, NatsConnectionOptions, Payload} from "./nats";
+import {ClientHandlers, ConnectionOptions, Callback, ErrorCallback, Msg, Payload, Req, Sub} from "./types";
 import {Transport, TransportHandlers, WSTransport} from "./transport";
 import {ErrorCode, NatsError} from "./error";
 import {buildWSMessage, extend, extractProtocolMessage, settle, stringToUint8Array} from "./util";
@@ -59,8 +59,8 @@ export class Connect {
     verbose: boolean = false;
     version: string = pkg.version;
 
-    constructor(opts?: NatsConnectionOptions) {
-        opts = opts || {} as NatsConnectionOptions;
+    constructor(opts?: ConnectionOptions) {
+        opts = opts || {} as ConnectionOptions;
         if (opts.token) {
             this.auth_token = opts.token;
         }
@@ -78,46 +78,6 @@ export class Connect {
     }
 }
 
-export interface Callback {
-    (): void;
-}
-
-export interface ErrorCallback {
-    (error: Error): void;
-}
-
-export interface ClientHandlers {
-    closeHandler: Callback;
-    errorHandler: ErrorCallback;
-}
-
-
-export interface MsgCallback {
-    (msg: Msg): void;
-}
-
-export interface RequestOptions {
-    timeout?: number;
-}
-
-export interface Base {
-    subject: string;
-    callback: MsgCallback;
-    received: number;
-    timeout?: number | null;
-    max?: number | undefined;
-    draining: boolean;
-}
-
-export interface Req extends Base {
-    token: string;
-}
-
-export interface Sub extends Base {
-    sid: number;
-    queue?: string | null;
-}
-
 export function defaultSub(): Sub {
     return {sid: 0, subject: "", received: 0} as Sub;
 }
@@ -126,7 +86,6 @@ export function defaultReq(): Req {
     return {token: "", subject: "", received: 0, max: 1} as Req;
 
 }
-
 
 export class Request {
     token: string;
@@ -269,7 +228,6 @@ export class MuxSubscription {
     };
 }
 
-
 export class Subscriptions {
     mux!: Sub;
     subs: { [key: number]: Sub } = {};
@@ -321,7 +279,6 @@ export class Subscriptions {
     }
 }
 
-
 export class MsgBuffer {
     msg: Msg;
     length: number;
@@ -370,7 +327,7 @@ export class ProtocolHandler implements TransportHandlers {
     inbound: DataBuffer;
     infoReceived: boolean = false;
     muxSubscriptions: MuxSubscription;
-    options: NatsConnectionOptions;
+    options: ConnectionOptions;
     outbound: DataBuffer;
     payload: MsgBuffer | null = null;
     pongs: Array<Function | undefined> = [];
@@ -380,7 +337,7 @@ export class ProtocolHandler implements TransportHandlers {
     transport!: Transport;
     noMorePublishing: boolean = false;
 
-    constructor(options: NatsConnectionOptions, handlers: ClientHandlers) {
+    constructor(options: ConnectionOptions, handlers: ClientHandlers) {
         this.options = options;
         this.clientHandlers = handlers;
         this.subscriptions = new Subscriptions();
@@ -389,7 +346,7 @@ export class ProtocolHandler implements TransportHandlers {
         this.outbound = new DataBuffer();
     }
 
-    public static connect(options: NatsConnectionOptions, handlers: ClientHandlers): Promise<ProtocolHandler> {
+    public static connect(options: ConnectionOptions, handlers: ClientHandlers): Promise<ProtocolHandler> {
         return new Promise<ProtocolHandler>((resolve, reject) => {
             let ph = new ProtocolHandler(options, handlers);
             ph.connectError = reject;
