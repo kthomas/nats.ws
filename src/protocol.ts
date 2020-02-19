@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import {Msg, NatsConnectionOptions, Payload, VERSION} from "./nats";
+import * as pkg from "../package.json";
+import {Msg, NatsConnectionOptions, Payload} from "./nats";
 import {Transport, TransportHandlers, WSTransport} from "./transport";
 import {ErrorCode, NatsError} from "./error";
 import {buildWSMessage, extend, extractProtocolMessage, settle, stringToUint8Array} from "./util";
@@ -56,7 +57,7 @@ export class Connect {
     protocol: number = 1;
     user?: string;
     verbose: boolean = false;
-    version: string = VERSION;
+    version: string = pkg.version;
 
     constructor(opts?: NatsConnectionOptions) {
         opts = opts || {} as NatsConnectionOptions;

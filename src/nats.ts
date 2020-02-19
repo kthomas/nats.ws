@@ -13,9 +13,6 @@
  * limitations under the License.
  */
 
-
-export const VERSION = require('./version.json').version;
-
 import {extend, isArrayBuffer, stringToUint8Array} from "./util";
 import {
     ClientHandlers,
@@ -85,9 +82,7 @@ export function connect(opts: NatsConnectionOptions): Promise<NatsConnection> {
     return NatsConnection.connect(opts);
 }
 
-
 export class NatsConnection implements ClientHandlers {
-    static VERSION = VERSION;
     options: NatsConnectionOptions;
     protocol!: ProtocolHandler;
     closeListeners: Callback[] = [];
