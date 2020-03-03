@@ -8,7 +8,7 @@ module.exports = {
         path: path.resolve(__dirname),
         filename: 'dist/nats.js',
         globalObject: 'this',
-        libraryTarget: 'commonjs',
+        libraryTarget: 'umd',
         library: 'nats',
     },
     resolve: {
