@@ -56,7 +56,6 @@ export class Connect {
     protocol: number = 1;
     user?: string;
     verbose: boolean = false;
-    version: string = require("../package.json").version;
 
     constructor(opts?: ConnectionOptions) {
         opts = opts || {} as ConnectionOptions;

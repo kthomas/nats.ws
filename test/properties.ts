@@ -19,16 +19,6 @@ import {Connect} from "../src/protocol";
 import {connect} from "../src/nats";
 import {ConnectionOptions, Payload} from "../src/types";
 
-test('VERSION is semver', (t) => {
-    t.regex(pkg.version, /[0-9]+\.[0-9]+\.[0-9]+/);
-});
-
-test('VERSION matches package.json', (t) => {
-    // we are getting build in lib/test
-    let pkgcontrol = require('../../package.json');
-    t.is(pkgcontrol.version, pkg.version);
-});
-
 test('connect is a function', (t) => {
     t.is(typeof connect, 'function');
 });
@@ -36,7 +26,6 @@ test('connect is a function', (t) => {
 test('default connect properties', (t) => {
     let c = new Connect();
     t.is(c.lang, "javascript");
-    t.truthy(c.version);
     t.is(c.verbose, false);
     t.is(c.pedantic, false);
     t.is(c.protocol, 1);
