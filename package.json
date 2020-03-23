@@ -60,9 +60,7 @@
       "dist/**/*.js"
     ]
   },
-  "dependencies": {
-    "js-nuid": "^1.1.1-4"
-  },
+  "dependencies": {},
   "nyc": {
     "extension": [
       ".ts",

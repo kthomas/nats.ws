@@ -17,7 +17,7 @@ import {ClientHandlers, ConnectionOptions, Callback, ErrorCallback, Msg, Payload
 import {Transport, TransportHandlers, WSTransport} from "./transport";
 import {ErrorCode, NatsError} from "./error";
 import {buildWSMessage, extend, extractProtocolMessage, settle, stringToUint8Array} from "./util";
-import {Nuid} from "js-nuid"
+import {Nuid} from "./nuid"
 import {DataBuffer} from "./databuffer";
 
 const nuid = new Nuid();
