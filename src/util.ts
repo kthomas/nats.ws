@@ -75,7 +75,7 @@ export function settle(a: any[]): Promise<any[]> {
 
 export function stringToUint8Array(str: string) {
     const chars = str.split('');
-    const uintArray = [];
+    const uintArray: any[] = [];
     for (var i = 0; i < chars.length; i++) {
         uintArray.push(chars[i].charCodeAt(0));
     }

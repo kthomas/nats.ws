@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import * as pkg from "../package.json";
 import {ClientHandlers, ConnectionOptions, Callback, ErrorCallback, Msg, Payload, Req, Sub} from "./types";
 import {Transport, TransportHandlers, WSTransport} from "./transport";
 import {ErrorCode, NatsError} from "./error";
@@ -57,7 +56,7 @@ export class Connect {
     protocol: number = 1;
     user?: string;
     verbose: boolean = false;
-    version: string = pkg.version;
+    version: string = require("../package.json").version;
 
     constructor(opts?: ConnectionOptions) {
         opts = opts || {} as ConnectionOptions;
@@ -259,7 +258,7 @@ export class Subscriptions {
     }
 
     all(): (Sub)[] {
-        let buf = [];
+        let buf: any[] = [];
         for (let sid in this.subs) {
             let sub = this.subs[sid];
             buf.push(sub);
