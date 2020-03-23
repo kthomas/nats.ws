@@ -35,8 +35,6 @@ import {
 import {ErrorCode, NatsError} from "./error";
 import {Nuid} from "./nuid"
 
-const nuid = new Nuid();
-
 export function connect(opts: ConnectionOptions): Promise<Connection> {
     return Connection.connect(opts);
 }
@@ -47,8 +45,11 @@ export class Connection implements ClientHandlers {
     closeListeners: Callback[] = [];
     errorListeners: ErrorCallback[] = [];
     draining: boolean = false;
+    nuid: Nuid;
 
     private constructor(opts: ConnectionOptions) {
+        this.nuid = new Nuid();
+
         this.options = {url: "ws://localhost:4222"} as ConnectionOptions;
         if (opts.payload === undefined) {
             opts.payload = Payload.STRING;
@@ -136,7 +137,7 @@ export class Connection implements ClientHandlers {
             let r = defaultReq();
             let opts = {max: 1} as RequestOptions;
             extend(r, opts);
-            r.token = nuid.next();
+            r.token = this.nuid.next();
             //@ts-ignore
             r.timeout = setTimeout(() => {
                 request.cancel();

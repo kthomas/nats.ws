@@ -20,7 +20,7 @@ import {buildWSMessage, extend, extractProtocolMessage, settle, stringToUint8Arr
 import {Nuid} from "./nuid"
 import {DataBuffer} from "./databuffer";
 
-const nuid = new Nuid();
+let nuid;
 
 const FLUSH_THRESHOLD = 1024 * 8;
 
@@ -42,6 +42,9 @@ const CR_LF = '\r\n';
 const CR_LF_LEN = CR_LF.length;
 
 export function createInbox(): string {
+    if (!nuid) {
+        nuid = new Nuid();
+    }
     return `_INBOX.${nuid.next()}`;
 }
 
