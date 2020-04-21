@@ -308,11 +308,11 @@ export class MsgBuffer {
             this.msg.data = this.buf.slice(0, this.buf.byteLength - 2);
             switch (this.payload) {
                 case Payload.JSON:
-                    this.msg.data = new TextDecoder("utf-8").decode(this.msg.data);
+                    this.msg.data = Buffer.from(this.msg.data).toString('utf8')
                     this.msg.data = JSON.parse(this.msg.data);
                     break;
                 case Payload.STRING:
-                    this.msg.data = new TextDecoder("utf-8").decode(this.msg.data);
+                    this.msg.data = Buffer.from(this.msg.data).toString('utf8')
                     break;
                 case Payload.BINARY:
                     break;
