@@ -140,7 +140,7 @@ export class WSTransport {
                     resolve(transport);
                     setTimeout(function () {
                         transport.handlers.messageHandler(me);
-                    }, 0);
+                    }, 100);
                 }
             };
         });
